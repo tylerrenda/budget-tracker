@@ -20,9 +20,9 @@ A personal finance tracking application built with Python and Kivy. Track income
 
 ## Screenshots
 
-![Home Screen](screenshots/home.png)
-![Summary](screenshots/summary.png)
-![Charts](screenshots/charts.png)
+![Home Screen](ScreenShots/home.png)
+![Summary](ScreenShots/summary.png)
+![Charts](ScreenShots/charts.png)
 
 ## Tech Stack
 
