@@ -26,8 +26,6 @@ A personal finance tracking application built with Python and Kivy. Track income
 
 ## Tech Stack
 
-| Tool | Purpose |
-|---|---|
 | Python 3.11 | Core language |
 | Kivy | GUI framework |
 | matplotlib | Data visualization |
@@ -53,7 +51,7 @@ Budget Tracker/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/budget-tracker.git
+git clone https://github.com/tylerrenda/budget-tracker.git
 cd budget-tracker
 ```
 
@@ -108,4 +106,4 @@ python main.py
 ## Author
 
 Built by Tyler Renda.
-[GitHub](https://github.com/yourusername) • [LinkedIn](https://www.linkedin.com/in/tyler-renda-85ba3333a/)
+[GitHub](https://github.com/tylerrenda) • [LinkedIn](https://www.linkedin.com/in/tyler-renda-85ba3333a/)
