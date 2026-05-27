@@ -1,0 +1,577 @@
+#:kivy 2.0
+
+<BudgetScreenManager>:
+    HomeScreen:
+        name: "home"
+    AddExpenseScreen:
+        name: "add_expense"
+    ViewExpensesScreen:
+        name: "view_expenses"
+    AddIncomeScreen:
+        name: "add_income"
+    ViewIncomeScreen:
+        name: "view_income"
+    SummaryScreen:
+        name: "summary"
+    BudgetScreen:
+        name: "budget"
+    InsightsScreen:
+        name: "insights"
+    GraphsScreen:
+        name: "graphs"
+
+<HomeScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 30
+        spacing: 15
+
+        Label:
+            text: "Budget Tracker"
+            font_size: "32sp"
+            bold: True
+            size_hint_y: 0.2
+            color: 0.2, 0.8, 0.4, 1
+
+        Label:
+            text: "What would you like to do?"
+            font_size: "16sp"
+            size_hint_y: 0.1
+            color: 0.8, 0.8, 0.8, 1
+
+        Button:
+            text: "Add Expense"
+            font_size: "18sp"
+            background_color: 0.9, 0.3, 0.3, 1
+            on_press: root.manager.current = "add_expense"
+
+        Button:
+            text: "Add Income"
+            font_size: "18sp"
+            background_color: 0.2, 0.7, 0.4, 1
+            on_press: root.manager.current = "add_income"
+
+        Button:
+            text: "View Expenses"
+            font_size: "18sp"
+            background_color: 0.3, 0.5, 0.9, 1
+            on_press: root.manager.current = "view_expenses"
+
+        Button:
+            text: "View Income"
+            font_size: "18sp"
+            background_color: 0.3, 0.5, 0.9, 1
+            on_press: root.manager.current = "view_income"
+
+        Button:
+            text: "Summary"
+            font_size: "18sp"
+            background_color: 0.6, 0.3, 0.9, 1
+            on_press: root.manager.current = "summary"
+
+        Button:
+            text: "Budget Manager"
+            font_size: "18sp"
+            background_color: 0.9, 0.6, 0.1, 1
+            on_press: root.manager.current = "budget"
+
+        Button:
+            text: "Spending Insights"
+            font_size: "18sp"
+            background_color: 0.2, 0.7, 0.8, 1
+            on_press: root.manager.current = "insights"
+
+        Button:
+            text: "View Graphs"
+            font_size: "18sp"
+            background_color: 0.8, 0.2, 0.6, 1
+            on_press: root.manager.current = "graphs"
+
+        Widget:
+            size_hint_y: 0.05
+
+# Placeholder screens (we'll fill these in next steps)
+
+<AddExpenseScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 30
+        spacing: 15
+
+        Label:
+            text: "Add Expense"
+            font_size: "26sp"
+            bold: True
+            size_hint_y: 0.12
+            color: 0.9, 0.3, 0.3, 1
+
+        Label:
+            text: "Amount ($)"
+            font_size: "14sp"
+            size_hint_y: 0.06
+            halign: "left"
+            text_size: self.size
+
+        TextInput:
+            id: amount_input
+            hint_text: "e.g. 25.50"
+            font_size: "18sp"
+            size_hint_y: 0.1
+            multiline: False
+            input_filter: "float"
+
+        Label:
+            text: "Category"
+            font_size: "14sp"
+            size_hint_y: 0.06
+            halign: "left"
+            text_size: self.size
+
+        TextInput:
+            id: category_input
+            hint_text: "e.g. Food, Transport, Bills"
+            font_size: "18sp"
+            size_hint_y: 0.1
+            multiline: False
+
+        Label:
+            text: "Date"
+            font_size: "14sp"
+            size_hint_y: 0.06
+            halign: "left"
+            text_size: self.size
+
+        TextInput:
+            id: date_input
+            hint_text: "YYYY-MM-DD (e.g. 2026-06-01)"
+            font_size: "18sp"
+            size_hint_y: 0.1
+            multiline: False
+
+        Label:
+            text: root.status_msg
+            font_size: "15sp"
+            size_hint_y: 0.08
+            color: 0.4, 1, 0.5, 1
+
+        Button:
+            text: "Save Expense"
+            font_size: "18sp"
+            size_hint_y: 0.12
+            background_color: 0.9, 0.3, 0.3, 1
+            on_press: root.submit_expense()
+
+        Button:
+            text: "⬅ Back"
+            font_size: "16sp"
+            size_hint_y: 0.1
+            background_color: 0.4, 0.4, 0.4, 1
+            on_press: root.manager.current = "home"
+
+<GraphsScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: "View Graphs"
+            font_size: "26sp"
+            bold: True
+            size_hint_y: None
+            height: 50
+            color: 0.8, 0.2, 0.6, 1
+
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint_y: None
+            height: 55
+            spacing: 8
+
+            Button:
+                text: "By Category"
+                font_size: "14sp"
+                background_color: 0.9, 0.3, 0.3, 1
+                on_press: root.show_pie_chart()
+
+            Button:
+                text: "Monthly"
+                font_size: "14sp"
+                background_color: 0.3, 0.5, 0.9, 1
+                on_press: root.show_bar_monthly()
+
+            Button:
+                text: "Income vs Expenses"
+                font_size: "14sp"
+                background_color: 0.2, 0.7, 0.4, 1
+                on_press: root.show_income_vs_expenses()
+
+        Label:
+            id: graphs_status
+            text: "Select a chart above"
+            font_size: "14sp"
+            size_hint_y: None
+            height: 30
+            color: 0.7, 0.7, 0.7, 1
+
+        BoxLayout:
+            id: chart_container
+            size_hint_y: 1
+
+        Button:
+            text: "< Back"
+            font_size: "16sp"
+            size_hint_y: None
+            height: 50
+            background_color: 0.4, 0.4, 0.4, 1
+            on_press: root.manager.current = "home"
+
+<ViewExpensesScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: "Expenses"
+            font_size: "26sp"
+            bold: True
+            size_hint_y: None
+            height: 50
+            color: 0.3, 0.5, 0.9, 1
+
+        ScrollView:
+            size_hint_y: 1
+
+            GridLayout:
+                id: expenses_container
+                cols: 1
+                spacing: 8
+                size_hint_y: None
+                height: self.minimum_height
+                padding: 10
+
+        Button:
+            text: "⬅ Back"
+            font_size: "16sp"
+            size_hint_y: None
+            height: 50
+            background_color: 0.4, 0.4, 0.4, 1
+            on_press: root.manager.current = "home"
+
+<AddIncomeScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 30
+        spacing: 15
+
+        Label:
+            text: "Add Income"
+            font_size: "26sp"
+            bold: True
+            size_hint_y: 0.12
+            color: 0.2, 0.7, 0.4, 1
+
+        Label:
+            text: "Amount ($)"
+            font_size: "14sp"
+            size_hint_y: 0.06
+            halign: "left"
+            text_size: self.size
+
+        TextInput:
+            id: amount_input
+            hint_text: "e.g. 1500.00"
+            font_size: "18sp"
+            size_hint_y: 0.1
+            multiline: False
+            input_filter: "float"
+
+        Label:
+            text: "Source"
+            font_size: "14sp"
+            size_hint_y: 0.06
+            halign: "left"
+            text_size: self.size
+
+        TextInput:
+            id: source_input
+            hint_text: "e.g. Job, Freelance, Gift"
+            font_size: "18sp"
+            size_hint_y: 0.1
+            multiline: False
+
+        Label:
+            text: "Date"
+            font_size: "14sp"
+            size_hint_y: 0.06
+            halign: "left"
+            text_size: self.size
+
+        TextInput:
+            id: date_input
+            hint_text: "YYYY-MM-DD (e.g. 2026-06-01)"
+            font_size: "18sp"
+            size_hint_y: 0.1
+            multiline: False
+
+        Label:
+            text: root.status_msg
+            font_size: "15sp"
+            size_hint_y: 0.08
+            color: 0.4, 1, 0.5, 1
+
+        Button:
+            text: "Save Income"
+            font_size: "18sp"
+            size_hint_y: 0.12
+            background_color: 0.2, 0.7, 0.4, 1
+            on_press: root.submit_income()
+
+        Button:
+            text: "< Back"
+            font_size: "16sp"
+            size_hint_y: 0.1
+            background_color: 0.4, 0.4, 0.4, 1
+            on_press: root.manager.current = "home"
+
+<ViewIncomeScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: "View Income"
+            font_size: "26sp"
+            bold: True
+            size_hint_y: None
+            height: 50
+            color: 0.2, 0.7, 0.4, 1
+
+        ScrollView:
+            size_hint_y: 1
+
+            GridLayout:
+                id: income_container
+                cols: 1
+                spacing: 8
+                size_hint_y: None
+                height: self.minimum_height
+                padding: 10
+
+        Button:
+            text: "< Back"
+            font_size: "16sp"
+            size_hint_y: None
+            height: 50
+            background_color: 0.4, 0.4, 0.4, 1
+            on_press: root.manager.current = "home"
+
+<SummaryScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: "Summary"
+            font_size: "26sp"
+            bold: True
+            size_hint_y: None
+            height: 50
+            color: 0.6, 0.3, 0.9, 1
+
+        Label:
+            text: root.income_text
+            font_size: "17sp"
+            size_hint_y: None
+            height: 44
+            color: 0.2, 0.9, 0.4, 1
+            halign: "left"
+            valign: "middle"
+            text_size: self.size
+
+        Label:
+            text: root.expenses_text
+            font_size: "17sp"
+            size_hint_y: None
+            height: 44
+            color: 1, 0.4, 0.4, 1
+            halign: "left"
+            valign: "middle"
+            text_size: self.size
+
+        Label:
+            text: root.balance_text
+            font_size: "17sp"
+            bold: True
+            size_hint_y: None
+            height: 44
+            color: root.balance_color
+            halign: "left"
+            valign: "middle"
+            text_size: self.size
+
+        Label:
+            text: root.status_text
+            font_size: "15sp"
+            size_hint_y: None
+            height: 35
+            color: root.status_color
+
+        Label:
+            text: "Spending by Category"
+            font_size: "16sp"
+            bold: True
+            size_hint_y: None
+            height: 35
+            color: 0.7, 0.7, 0.7, 1
+
+        ScrollView:
+            size_hint_y: 1
+            GridLayout:
+                id: category_container
+                cols: 1
+                spacing: 5
+                size_hint_y: None
+                height: self.minimum_height
+                padding: 10
+
+        Button:
+            text: "< Back"
+            font_size: "16sp"
+            size_hint_y: None
+            height: 50
+            background_color: 0.4, 0.4, 0.4, 1
+            on_press: root.manager.current = "home"
+
+<BudgetScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: "Budget Manager"
+            font_size: "26sp"
+            bold: True
+            size_hint_y: None
+            height: 50
+            color: 0.9, 0.6, 0.1, 1
+
+        Label:
+            text: "Category"
+            font_size: "14sp"
+            size_hint_y: None
+            height: 25
+            halign: "left"
+            text_size: self.size
+
+        TextInput:
+            id: category_input
+            hint_text: "e.g. Food, Transport, Bills"
+            font_size: "17sp"
+            size_hint_y: None
+            height: 44
+            multiline: False
+
+        Label:
+            text: "Monthly Limit ($)"
+            font_size: "14sp"
+            size_hint_y: None
+            height: 25
+            halign: "left"
+            text_size: self.size
+
+        TextInput:
+            id: limit_input
+            hint_text: "e.g. 200.00"
+            font_size: "17sp"
+            size_hint_y: None
+            height: 44
+            multiline: False
+            input_filter: "float"
+
+        Label:
+            text: root.status_msg
+            font_size: "14sp"
+            size_hint_y: None
+            height: 30
+            color: 0.4, 1, 0.5, 1
+
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint_y: None
+            height: 50
+            spacing: 10
+
+            Button:
+                text: "Save Budget"
+                font_size: "16sp"
+                background_color: 0.9, 0.6, 0.1, 1
+                on_press: root.submit_budget()
+
+            Button:
+                text: "Delete Budget"
+                font_size: "16sp"
+                background_color: 0.7, 0.2, 0.2, 1
+                on_press: root.delete_budget()
+
+        Label:
+            text: "Current Budgets"
+            font_size: "16sp"
+            bold: True
+            size_hint_y: None
+            height: 35
+            color: 0.7, 0.7, 0.7, 1
+
+        ScrollView:
+            size_hint_y: 1
+            GridLayout:
+                id: budget_container
+                cols: 1
+                spacing: 8
+                size_hint_y: None
+                height: self.minimum_height
+                padding: 10
+
+        Button:
+            text: "< Back"
+            font_size: "16sp"
+            size_hint_y: None
+            height: 50
+            background_color: 0.4, 0.4, 0.4, 1
+            on_press: root.manager.current = "home"
+
+<InsightsScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: "Spending Insights"
+            font_size: "26sp"
+            bold: True
+            size_hint_y: None
+            height: 50
+            color: 0.2, 0.7, 0.8, 1
+
+        ScrollView:
+            size_hint_y: 1
+            GridLayout:
+                id: insights_container
+                cols: 1
+                spacing: 8
+                size_hint_y: None
+                height: self.minimum_height
+                padding: 10
+
+        Button:
+            text: "< Back"
+            font_size: "16sp"
+            size_hint_y: None
+            height: 50
+            background_color: 0.4, 0.4, 0.4, 1
+            on_press: root.manager.current = "home"

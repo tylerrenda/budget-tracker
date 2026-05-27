@@ -1,0 +1,6 @@
+expenses.json
+__pycache__/
+*.pyc
+chart_pie.png
+chart_monthly.png
+chart_income_vs_expenses.png
